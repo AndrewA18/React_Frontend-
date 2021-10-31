@@ -10,9 +10,9 @@ function register(){
             <br />
             <input type="text" placeholder="Username" className="form-control" />
             <br />
-            <input type="text" placeholder="Password" className="form-control" />
+            <input type="password" placeholder="Password" className="form-control" />
             <br />
-            <input type="text" placeholder="Confirm Password" className="form-control" />
+            <input type="password" placeholder="Confirm Password" className="form-control" />
             <br />
             <button className="btn btn-primary" >Register </button> 
             
