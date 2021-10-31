@@ -1,6 +1,13 @@
 # React_Frontend-
 Here is the front end using react for our django backend and api
 
+make sure ou have node and npm
+from command line
+
+> node -v
+> npm - v
+
+
 
 need node js 
 https://nodejs.org/en/download/
