@@ -7,8 +7,6 @@ function Register(){
     const [password, setPassword]=useState([]);
     const [passwordConfirm, setPasswordConfirm]=useState([]);
 
-    let item = {email, username, password, passwordConfirm};
-
     async function register()
     {
         var formData = new FormData();
@@ -16,15 +14,27 @@ function Register(){
         formData.append('username', username);
         formData.append('password', password);
         formData.append('passwordConfirm', passwordConfirm);
-        let result = fetch("/api/register/", {
+        fetch("/api/register/", {
             method: 'POST',
             header:{
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
             body: formData
-        });
-        console.log(result);
+        })
+        .then(result => 
+            {
+                if(!result.ok)
+                {
+                    throw new Error("Failed to create account");
+                }
+                else
+                {
+                    result.text().then(value => document.cookie = ("token=" + JSON.parse(value)['token']) + "; max-age=86400; SameSite=Strict;"); //86400 is one day in time.
+                    document.location.assign("/");
+                }
+            })
+        .catch(error => console.log(error));
     }
 
     return (

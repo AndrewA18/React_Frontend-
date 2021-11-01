@@ -1,29 +1,37 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 
 function Login(){
     const [email, setEmail]= useState([]);
     const [password, setPassword]= useState([]);
 
-    let item = {email, password};
-
-    async function loggin ()
+    async function login()
     {
         var formData = new FormData();
-        //Users will login with emails. so the username field is an email...
-        formData.append('username', email);
+        formData.append('username', email); //Users will login with emails. so the username field is an email...
         formData.append('password', password);
-        let result = fetch("/api/login/", {
+        fetch("/api/login/", 
+        {
             method: 'POST',
             header:{
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
             body: formData
-        });
-        console.log(result);
-        //history.push("/") trying to get it to route to the homepage after login
+        })
+        .then(result => 
+            {
+                if(!result.ok)
+                {
+                    throw new Error("Failed to login");
+                }
+                else
+                {
+                    result.text().then(value => document.cookie = ("token=" + JSON.parse(value)['token']) + "; max-age=86400; SameSite=Strict;"); //86400 is one day in time.
+                    document.location.assign("/");
+                }
+            })
+        .catch(error => console.log(error));
     }
     
     
@@ -38,7 +46,7 @@ function Login(){
             <input type="password" placeholder="Password" className="form-control" 
                 onChange={(e)=>setPassword(e.target.value)}/>
             <br />
-            <button onClick={loggin} className="btn btn-primary" > Login   </button>
+            <button onClick={login} className="btn btn-primary" > Login   </button>
             <button className="btn btn-primary" > Register</button>
             </div>
         </div>
