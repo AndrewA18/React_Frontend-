@@ -11,7 +11,8 @@ function Login(){
     async function loggin ()
     {
         var formData = new FormData();
-        formData.append('email', email);
+        //Users will login with emails. so the username field is an email...
+        formData.append('username', email);
         formData.append('password', password);
         let result = fetch("/api/login/", {
             method: 'POST',

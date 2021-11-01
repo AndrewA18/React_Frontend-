@@ -31,20 +31,15 @@ function Register(){
         <div>
             <h1>Registration Page </h1>
             <div className="col-sm-6 offset-sm-3">
-            <input type="text" placeholder="Email" className="form-control" 
-                onChange={(e)=>setEmail(e.target.value)}/>
+            <input type="text" placeholder="Email" className="form-control" onChange={(e)=>setEmail(e.target.value)}/>
             <br />
-            <input type="text" placeholder="Username" className="form-control"
-                onChange={(e)=>setUsername(e.target.value)}/>
+            <input type="text" placeholder="Username" className="form-control" onChange={(e)=>setUsername(e.target.value)}/>
             <br />
-            <input type="password" placeholder="Password" className="form-control"
-                onChange={(e)=>setPassword(e.target.value)}/>
+            <input type="password" placeholder="Password" className="form-control" onChange={(e)=>setPassword(e.target.value)}/>
             <br />
-            <input type="password" placeholder="Confirm Password" className="form-control"
-                onChange={(e)=>setPasswordConfirm(e.target.value)}/>
+            <input type="password" placeholder="Confirm Password" className="form-control"onChange={(e)=>setPasswordConfirm(e.target.value)}/>
             <br />
             <button onClick={register} className="btn btn-primary" >Register </button> 
-            
             <button className="btn btn-primary" >Login Page</button>
             </div>
         </div>
