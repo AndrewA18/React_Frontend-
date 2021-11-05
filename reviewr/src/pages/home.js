@@ -47,8 +47,9 @@ function Home() {
       <Button colorScheme="teal" variant="solid" onClick={callYelp}>
         Search
       </Button>
+
     <p>
-      <strong>Reviews</strong>
+      <strong>Businesses Near: {location}</strong>
     </p> 
      {
        data && data.length>0 && data.map((item)=><p>{item.name} : {item.review_count}</p>)
