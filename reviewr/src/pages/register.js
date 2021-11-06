@@ -9,14 +9,14 @@ function Register(){
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
 
-    async function register()
+    async function callRegisterApi()
     {
         var formData = new FormData();
         formData.append('email', email);
         formData.append('username', username);
         formData.append('password', password);
         formData.append('passwordConfirm', passwordConfirm);
-        fetch("/api/register/", {
+        const response = await fetch("/api/register/", {
             method: 'POST',
             header:{
                 "Content-Type": "application/json",
@@ -24,19 +24,16 @@ function Register(){
             },
             body: formData
         })
-        .then(result => 
-            {
-                if(!result.ok)
-                {
-                    throw new Error("Failed to create account");
-                }
-                else
-                {
-                    result.text().then(value => document.cookie = ("token=" + JSON.parse(value)['token']) + "; max-age=86400; SameSite=Strict;"); //86400 is one day in time.
-                    document.location.assign("/");
-                }
-            })
-        .catch(error => console.log(error));
+        const responseValues = response.json();
+        return responseValues;
+    }
+
+    async function register()
+    {
+        callRegisterApi().then(responseValues => {
+            document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
+            document.location.assign("/");
+        })
     }
 
     return (

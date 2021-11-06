@@ -7,18 +7,16 @@ function Login(){
     const [password, setPassword]= useState([]);
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
-    const [token, setToken] = useState([]);
     
     //This is how we get tokens...
     console.log(Cookies.get('token'))
 
-    async function login()
+    async function callLoginApi()
     {
         var formData = new FormData();
         formData.append('username', email); //Users will login with emails. so the username field is an email...
         formData.append('password', password);
-        console.log(email);
-        await fetch("/api/login/", 
+        const response = await fetch("/api/login/", 
         {
             method: 'POST',
             header:{
@@ -27,25 +25,17 @@ function Login(){
             },
             body: formData
         })
-        .then(result => 
-            {
-                if(!result.ok)
-                {
-                    throw new Error("Failed to login");
-                }
-                else
-                {
-                    result.text().then(value => setToken(JSON.parse(value)['token'])); //86400 is one day in time.
-                    console.log(token);
-                    while(token.length < 1)
-                    {
-                        result.text().then(value => setToken(JSON.parse(value)['token'])); //86400 is one day in time.
-                    }
-                    document.cookie = "token=" + token + "; max-age=86400; SameSite=Strict;"
-                    document.location.assign("/");
-                }
-            })
-        .catch(error => console.log(error));
+        const responseValues = response.json();
+        return responseValues
+    }
+
+    async function login()
+    {
+        callLoginApi().then(responseValues => {
+            console.log(responseValues);
+            //document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
+            //document.location.assign("/");
+        });
     }
     
     return (
