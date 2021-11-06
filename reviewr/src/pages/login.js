@@ -32,9 +32,8 @@ function Login(){
     async function login()
     {
         callLoginApi().then(responseValues => {
-            console.log(responseValues);
-            //document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
-            //document.location.assign("/");
+            document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
+            document.location.assign("/");
         });
     }
     
