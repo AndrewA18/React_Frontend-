@@ -8,7 +8,7 @@ import {
   Flex, Spacer
 } from "@chakra-ui/react"
 import BusCard from '../components/BusCard'
-
+import Cookies from 'js-cookie';
 
 function Home() { 
   const [data,setData]=useState([]);
@@ -39,10 +39,26 @@ function Home() {
     return data
   }
 
+  const deleteToken = () =>{
+    Cookies.remove('token')
+    window.location.reload(); //refreshes the window
+  }
 
-  
+  const renderAuthButton = () =>{
+    if(Cookies.get('token')!= null)
+    {
+      return <Button colorScheme="teal" variant="solid" onClick={() => deleteToken()}> Logout </Button>
+    }
+    else
+    {
+      return <Button colorScheme="teal" variant="solid" onClick={() => {document.location.assign("/login")}}>Login</Button>
+    }
+  }
+
+  //{renderAuthButton()} is login/logout button
   return (
     <ChakraProvider>
+      {renderAuthButton()} 
       <Flex p="4">
         <FormControl id="location">
             <Input type="location" onChange={event => { setLocation(event.target.value)}} />
