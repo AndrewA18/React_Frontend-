@@ -69,6 +69,7 @@ function Home(props) {
   }
 
   let currentBusiness = new Business('', '')
+
   return (
     <ChakraProvider>
       <Flex p="4">

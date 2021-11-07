@@ -3,13 +3,14 @@ import React from 'react';
 
 function BusCard(item, currentBusiness) {
   function setBusiness() {
+    console.log("Setting Business")
     currentBusiness.name = item.name
     currentBusiness.id = item.id
   }
 
   return(
-    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
-      <Image src={item.image_url} alt={item.alias} />
+    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden"  onClick={setBusiness}>
+      <Image src={item.image_url} alt={item.alias} size="sm" />
       <Box p="2">
         <Box
           mt="1"
@@ -35,7 +36,7 @@ function BusCard(item, currentBusiness) {
             <br />
             {item.phone}
           </Box>
-          <Button p="4" colorScheme="teal" variant="solid" onClick={setBusiness}>
+          <Button p="4" colorScheme="teal" variant="solid">
             See Reviews
           </Button>
         </Box>
