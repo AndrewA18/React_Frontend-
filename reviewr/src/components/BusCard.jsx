@@ -1,5 +1,6 @@
-import { Box, Image} from "@chakra-ui/react";
+import { Box, Image, Button} from "@chakra-ui/react";
 import React from 'react';
+import getReviews from '../pages/home'
 
 function BusCard(item) {
 
@@ -31,7 +32,7 @@ function BusCard(item) {
             <br />
             {item.phone}
           </Box>
-          {/* <Button p="4" colorScheme="teal" variant="solid">
+          {/* <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
             See Reviews
           </Button> */}
         </Box>

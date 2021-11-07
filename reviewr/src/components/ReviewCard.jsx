@@ -2,7 +2,7 @@ import { Box, } from "@chakra-ui/react";
 
 import React from 'react';
 
-function ReviewCard(item) {
+function ReviewCard(review) {
 
   return(
     <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
@@ -14,23 +14,7 @@ function ReviewCard(item) {
           lineHeight="tight"
           alignItems
         >
-          {item.name} 
-          <br />
-          {item.review_count} Reviews
-        </Box>
-        <Box display="flex" alignItems="baseline">
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="5"
-          >
-            {item.location.display_address}
-            <br />
-            {item.phone}
-          </Box>
+          {review.text} 
         </Box>
       </Box>
     </Box>
@@ -38,4 +22,4 @@ function ReviewCard(item) {
 }
 
 
-export default BusCard;
+export default ReviewCard;
