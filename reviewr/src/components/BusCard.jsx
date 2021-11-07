@@ -1,8 +1,11 @@
 import { Box, Image, Button} from "@chakra-ui/react";
 import React from 'react';
-import getReviews from '../pages/home'
 
-function BusCard(item) {
+function BusCard(item, currentBusiness) {
+  function setBusiness() {
+    currentBusiness.name = item.name
+    currentBusiness.id = item.id
+  }
 
   return(
     <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
@@ -32,9 +35,9 @@ function BusCard(item) {
             <br />
             {item.phone}
           </Box>
-          {/* <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
+          <Button p="4" colorScheme="teal" variant="solid" onClick={setBusiness}>
             See Reviews
-          </Button> */}
+          </Button>
         </Box>
       </Box>
     </Box>

@@ -9,14 +9,17 @@ import {
 import BusCard from '../components/BusCard'
 import ReviewCard from '../components/ReviewCard'
 
-
+class Business {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
 
 function Home(props) { 
   const [data,setData]=useState([]);
   const [reviewData,setReviewData]=useState([]);
   const [location, setLocation] = useState('');
-
-  const [businessID,setBusinessID]=useState(['qE-L1PQd8i6X_NSdysLGiA']);
 
   const callYelp = async => {
 
@@ -43,9 +46,9 @@ function Home(props) {
 
     const getReviews = async => {
 
-    console.log(businessID)
+    console.log(currentBusiness.id)
 
-      fetch('/yelp/reviews/' + businessID + '/'
+      fetch('/yelp/reviews/' + currentBusiness.id + '/'
       ,{
         headers : { 
           'Content-Type': 'application/json',
@@ -65,8 +68,7 @@ function Home(props) {
     return reviewData
   }
 
-
-  
+  let currentBusiness = new Business('', '')
   return (
     <ChakraProvider>
       <Flex p="4">
@@ -84,7 +86,7 @@ function Home(props) {
     <Flex p="4">
       <Box>
         {
-            data && data.length>0 && data.map((item)=>BusCard(item))
+            data && data.length>0 && data.map((item)=>BusCard(item, currentBusiness))
         }
       </Box>
       <Box>
