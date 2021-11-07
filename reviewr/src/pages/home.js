@@ -1,18 +1,17 @@
 import React,{useState,useEffect} from 'react';
 import {
   FormControl,
-  FormLabel,
   Input,
   Button,
   ChakraProvider,
-  Flex, Spacer
+  Flex,
 } from "@chakra-ui/react"
 import BusCard from '../components/BusCard'
 
 
-function Home() { 
+function Home(props) { 
   const [data,setData]=useState([]);
-  
+  const [review,setReview]=useState([]);
   const [location, setLocation] = useState('');
 
   const callYelp = async => {
@@ -38,6 +37,30 @@ function Home() {
 
     return data
   }
+
+    // const getReviews = async => {
+
+  //   console.log(item.id)
+
+  //     fetch('/yelp/reviews/' + item.id + '/'
+  //     ,{
+  //       headers : { 
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json'
+  //         }
+  //     }
+  //     )
+  //       .then(function(response){
+  //         console.log(response)
+  //         return response.json();
+  //       })
+  //       .then(function(myJson) {
+  //         console.log(myJson);
+  //         setReviewData(myJson)
+  //       });
+
+  //   return reviewData
+  // }
 
 
   

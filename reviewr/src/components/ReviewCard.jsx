@@ -1,11 +1,11 @@
-import { Box, Image} from "@chakra-ui/react";
+import { Box, } from "@chakra-ui/react";
+
 import React from 'react';
 
-function BusCard(item) {
+function ReviewCard(item) {
 
   return(
-    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
-      <Image src={item.image_url} alt={item.alias} />
+    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p="2">
         <Box
           mt="1"
@@ -31,9 +31,6 @@ function BusCard(item) {
             <br />
             {item.phone}
           </Box>
-          {/* <Button p="4" colorScheme="teal" variant="solid">
-            See Reviews
-          </Button> */}
         </Box>
       </Box>
     </Box>
