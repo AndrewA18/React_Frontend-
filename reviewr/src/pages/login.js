@@ -19,7 +19,7 @@ function Login(){
         const response = await fetch("/api/login/", 
         {
             method: 'POST',
-            header:{
+            headers:{
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
