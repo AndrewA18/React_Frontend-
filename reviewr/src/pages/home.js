@@ -110,12 +110,6 @@ function Home(props) {
             data && data.length>0 && data.map((item)=>BusCard(item, currentBusiness))
         }
       </Box>
-      <Box>
-        <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
-            See Reviews
-        </Button>
-        {reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))}
-        </Box>
       </Flex>
     </ChakraProvider>
   );

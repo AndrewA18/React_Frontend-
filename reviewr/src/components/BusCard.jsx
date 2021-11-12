@@ -36,7 +36,7 @@ function BusCard(item, currentBusiness) {
             <br />
             {item.phone}
           </Box>
-          <Button p="4" colorScheme="teal" variant="solid">
+          <Button onClick={() => {document.location.assign("/reviewPage/" + item.id)}} colorScheme="teal" variant="ghost" rounded={6}>
             See Reviews
           </Button>
         </Box>
