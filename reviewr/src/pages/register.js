@@ -45,7 +45,7 @@ function Register(){
                 <Input width="300px" placeholder="Username" variant="filled" p={6} mb={3} type="email" onChange={(e)=>setUsername(e.target.value)}></Input>
                 <InputGroup>
                     <Input width="300px" placeholder="Password" variant="filled"p={6} mb={3} type={show ? "text" : "password"} onChange={(e)=>setPassword(e.target.value)}></Input>
-                    <InputRightElement width="4.5rem">
+                    <InputRightElement width="4.5rem" height="3.2rem">
                             <Button h="2rem" size="sm" p={4} onClick={handleClick}>{show ? "Hide" : "Show"}</Button>
                         </InputRightElement>
                 </InputGroup>

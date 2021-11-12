@@ -1,13 +1,15 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import {
   FormControl,
   Input,
   Button,
   ChakraProvider,
+
   Flex, Box
 } from "@chakra-ui/react"
 import BusCard from '../components/BusCard'
 import ReviewCard from '../components/ReviewCard'
+import Cookies from 'js-cookie';
 
 class Business {
   constructor(id, name) {
@@ -70,8 +72,26 @@ function Home(props) {
 
   let currentBusiness = new Business('', '')
 
+  const deleteToken = () =>{
+    Cookies.remove('token')
+    window.location.reload(); //refreshes the window
+  }
+
+  const renderAuthButton = () =>{
+    if(Cookies.get('token')!= null)
+    {
+      return <Button colorScheme="teal" variant="solid" onClick={() => deleteToken()}> Logout </Button>
+    }
+    else
+    {
+      return <Button colorScheme="teal" variant="solid" onClick={() => {document.location.assign("/login")}}>Login</Button>
+    }
+  }
+
+  //{renderAuthButton()} is login/logout button
   return (
     <ChakraProvider>
+      {renderAuthButton()} 
       <Flex p="4">
         <FormControl id="location">
             <Input type="location" onChange={event => { setLocation(event.target.value)}} />
