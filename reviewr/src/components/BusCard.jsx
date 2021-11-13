@@ -1,16 +1,25 @@
-import { Box, Image, Button} from "@chakra-ui/react";
+import { AspectRatio, Box, Image} from "@chakra-ui/react";
 import React from 'react';
 
-function BusCard(item, currentBusiness) {
-  function setBusiness() {
-    console.log("Setting Business")
-    currentBusiness.name = item.name
-    currentBusiness.id = item.id
+let currentBusiness = "";
+
+export function getCurrentSelectedBusiness()
+{
+  return currentBusiness;
+}
+
+function BusCard(item) 
+{
+  function setBusiness() 
+  {
+    currentBusiness = item;
   }
 
   return(
     <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden"  onClick={setBusiness}>
-      <Image src={item.image_url} alt={item.alias} size="sm" />
+      <AspectRatio maxH="100px">
+        <Image src={item.image_url} alt={item.alias} size="sm" />
+      </AspectRatio>
       <Box p="2">
         <Box
           mt="1"
@@ -36,9 +45,6 @@ function BusCard(item, currentBusiness) {
             <br />
             {item.phone}
           </Box>
-          <Button p="4" colorScheme="teal" variant="solid">
-            See Reviews
-          </Button>
         </Box>
       </Box>
     </Box>

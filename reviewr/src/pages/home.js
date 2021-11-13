@@ -4,53 +4,59 @@ import {
   Input,
   Button,
   ChakraProvider,
-
-  Flex, Box
+  Center,
+  Heading,
+  Flex, 
+  Box,
+  VStack,
+  ButtonGroup,
+  Divider,
+  StackDivider
 } from "@chakra-ui/react"
-import BusCard from '../components/BusCard'
+
+import BusCard, {getCurrentSelectedBusiness} from '../components/BusCard'
 import ReviewCard from '../components/ReviewCard'
 import Cookies from 'js-cookie';
-
-class Business {
-  constructor(id, name) {
-    this.id = id;
-    this.name = name;
-  }
-}
 
 function Home(props) { 
   const [data,setData]=useState([]);
   const [reviewData,setReviewData]=useState([]);
   const [location, setLocation] = useState('');
+  const [enteredLocation, setEnteredLocation] = useState('');
 
   const callYelp = async => {
 
-    console.log(location)
-
-      fetch('/yelp/businesses/' + location + '/'
-      ,{
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-          }
-      }
-      )
-        .then(function(response){
-          console.log(response)
-          return response.json();
-        })
-        .then(function(myJson) {
-          console.log(myJson);
-          setData(myJson['businesses'])
-        });
-    return data
+    if(location.length === 5)
+    {
+      setEnteredLocation(location);
+      setData(null);
+      console.log(location);
+  
+        fetch('/yelp/businesses/' + location + '/'
+        ,{
+          headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            }
+        }
+        )
+          .then(function(response){
+            console.log(response)
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(myJson);
+            setData(myJson['businesses'])
+          });
+      return data
+    }
   }
 
-    const getReviews = async => {
+    const getReviews = async => 
+    {
+      let selectedBusiness = getCurrentSelectedBusiness();
 
-    console.log(currentBusiness.id)
-
-      fetch('/yelp/reviews/' + currentBusiness.id + '/'
+      fetch('/yelp/reviews/' + selectedBusiness.id + '/'
       ,{
         headers : { 
           'Content-Type': 'application/json',
@@ -69,8 +75,6 @@ function Home(props) {
 
     return reviewData
   }
-
-  let currentBusiness = new Business('', '')
 
   const deleteToken = () =>{
     Cookies.remove('token')
@@ -91,34 +95,69 @@ function Home(props) {
   //{renderAuthButton()} is login/logout button
   return (
     <ChakraProvider>
-      {renderAuthButton()} 
-      <Flex p="4">
-        <FormControl id="location">
-            <Input type="location" onChange={event => { setLocation(event.target.value)}} />
-        </FormControl>
-        <Button colorScheme="teal" variant="solid" onClick={callYelp}>
-          Search
-        </Button>
-      </Flex>
+      <Flex justifyContent="center">
+        <VStack spacing={4} align="stretch" >
+          <Flex p="4">
+            <FormControl id="location">
+                <Input type="location" onChange={event => { setLocation(event.target.value); setEnteredLocation(null); setData(null); setReviewData(null)}} />
+            </FormControl>
+            <ButtonGroup>
+              <Button colorScheme="teal" variant="solid" onClick={callYelp}>
+                Search
+              </Button>
+              {renderAuthButton()} 
+            </ButtonGroup>
+          </Flex>
 
-    <p>
-      <strong>Businesses Near: {location}</strong>
-    </p>
-    <Flex p="4">
-      <Box>
-        {
-            data && data.length>0 && data.map((item)=>BusCard(item, currentBusiness))
-        }
-      </Box>
-      <Box>
-        <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
-            See Reviews
-        </Button>
-        {reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))}
-        </Box>
+          <Center>
+            <Flex>
+              <VStack spacing={4} align="stretch">
+                <Box width="400px">
+                  <Center>
+                  <Heading mb={6} isTruncated>Businesses near: {enteredLocation}   </Heading>
+                  </Center>
+                </Box>
+                <Box overflowY="scroll" height="500px">
+                  {
+                    data && data.length>0 && data.map((item)=>BusCard(item))
+                  }
+                </Box>
+              </VStack>
+              <Center height="600px" p={6}>
+                <Divider orientation="vertical" />
+              </Center>
+              <VStack spacing={4} align="stretch" >
+                <Box width="450px">
+                  <Center>
+                    <Heading mb={6}>Reviews</Heading>
+                    <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
+                      See Reviews
+                  </Button>
+                  </Center>
+                </Box>
+                <Box>
+                  <Box overflowY="scroll" height="500px">
+                    {
+                      reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))
+                    }
+                  </Box>
+                </Box>
+              </VStack>
+            </Flex>
+          </Center>
+        </VStack>
       </Flex>
     </ChakraProvider>
   );
 }
+
+/*
+      <Box>
+        <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
+            See Reviews
+        </Button>
+          {reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))}
+        </Box>
+*/
 
 export default Home;
