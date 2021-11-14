@@ -10,7 +10,7 @@ const filledStar = 9733;
 function ReviewCard(review) {
 
   return(
-    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" mt={6}>
+    <Box p="4" mt={2} maxW="sm" borderWidth="1px" borderRadius="lg">
       <Box p="2">
         <Box
           mt="1"

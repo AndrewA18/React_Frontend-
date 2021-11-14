@@ -118,7 +118,7 @@ function Home(props) {
                     <Heading mb={6} isTruncated>Businesses near: {enteredLocation}</Heading>
                   </Center>
                 </Box>
-                <Box overflowY="auto" height="500px" width="450px">
+                <Box overflowY="auto" height="500px" width="450px" onClick={getReviews}>
                     {
                       data && data.map( business => BusCard(business) )
                     }
@@ -129,13 +129,9 @@ function Home(props) {
               </Center>
               <VStack spacing={4} align="stretch" >
                 <Box width="450px">
-                  <Flex>
-                      <Heading mb={6}>Reviews</Heading>
-                      <Spacer />
-                      <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
-                        See Reviews
-                      </Button>
-                  </Flex>
+                  <Center>
+                  <Heading mb={6}>Reviews</Heading>
+                  </Center>
                 </Box>
                 <Box overflowY="auto" height="500px">
                   {

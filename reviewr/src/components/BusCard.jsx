@@ -10,7 +10,7 @@ export function getCurrentSelectedBusiness()
 }
 
 function BusCard(item, index) 
-{
+{ 
   function setBusiness() 
   {
     currentBusiness = item;
