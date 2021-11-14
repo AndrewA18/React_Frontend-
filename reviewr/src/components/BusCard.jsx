@@ -1,7 +1,8 @@
 import { AspectRatio, Box, Image} from "@chakra-ui/react";
-import React from 'react';
+import React, {useState} from 'react';
 
 let currentBusiness = "";
+
 
 export function getCurrentSelectedBusiness()
 {
@@ -16,7 +17,7 @@ function BusCard(item)
   }
 
   return(
-    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden"  onClick={setBusiness}>
+    <Box p="4" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mt={6} onClick={setBusiness}>
       <AspectRatio maxH="100px">
         <Image src={item.image_url} alt={item.alias} size="sm" />
       </AspectRatio>

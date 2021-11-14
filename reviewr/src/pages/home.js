@@ -11,7 +11,7 @@ import {
   VStack,
   ButtonGroup,
   Divider,
-  StackDivider
+  Spacer
 } from "@chakra-ui/react"
 
 import BusCard, {getCurrentSelectedBusiness} from '../components/BusCard'
@@ -30,6 +30,7 @@ function Home(props) {
     {
       setEnteredLocation(location);
       setData(null);
+      setReviewData(null);
       console.log(location);
   
         fetch('/yelp/businesses/' + location + '/'
@@ -114,12 +115,12 @@ function Home(props) {
               <VStack spacing={4} align="stretch">
                 <Box width="400px">
                   <Center>
-                  <Heading mb={6} isTruncated>Businesses near: {enteredLocation}   </Heading>
+                    <Heading mb={6} isTruncated>Businesses near: {enteredLocation}</Heading>
                   </Center>
                 </Box>
-                <Box overflowY="scroll" height="500px">
+                <Box overflowY="auto" height="500px">
                   {
-                    data && data.length>0 && data.map((item)=>BusCard(item))
+                    data && data.map( business => BusCard(business) )
                   }
                 </Box>
               </VStack>
@@ -128,19 +129,18 @@ function Home(props) {
               </Center>
               <VStack spacing={4} align="stretch" >
                 <Box width="450px">
-                  <Center>
-                    <Heading mb={6}>Reviews</Heading>
-                    <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
-                      See Reviews
-                  </Button>
-                  </Center>
+                  <Flex>
+                      <Heading mb={6}>Reviews</Heading>
+                      <Spacer />
+                      <Button p="4" colorScheme="teal" variant="solid" onClick={getReviews}>
+                        See Reviews
+                      </Button>
+                  </Flex>
                 </Box>
-                <Box>
-                  <Box overflowY="scroll" height="500px">
-                    {
-                      reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))
-                    }
-                  </Box>
+                <Box overflowY="auto" height="500px">
+                  {
+                    reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))
+                  }
                 </Box>
               </VStack>
             </Flex>
