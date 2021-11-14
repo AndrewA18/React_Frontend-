@@ -73,7 +73,7 @@ function Home(props) {
           console.log(myJson);
           setReviewData(myJson['reviews'])
         });
-
+    console.log(reviewData);
     return reviewData
   }
 
@@ -118,10 +118,10 @@ function Home(props) {
                     <Heading mb={6} isTruncated>Businesses near: {enteredLocation}</Heading>
                   </Center>
                 </Box>
-                <Box overflowY="auto" height="500px">
-                  {
-                    data && data.map( business => BusCard(business) )
-                  }
+                <Box overflowY="auto" height="500px" width="450px">
+                    {
+                      data && data.map( business => BusCard(business) )
+                    }
                 </Box>
               </VStack>
               <Center height="600px" p={6}>

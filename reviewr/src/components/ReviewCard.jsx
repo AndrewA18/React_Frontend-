@@ -4,6 +4,8 @@ import React from 'react';
 
 const unfilledUpArrow = 9651;
 const unfilledDownArrow = 9661;
+const unfilledStar = 9734;
+const filledStar = 9733;
 
 function ReviewCard(review) {
 
@@ -17,7 +19,15 @@ function ReviewCard(review) {
           lineHeight="tight"
           alignItems
         >
+          <Flex>
+          {review.user.name}
+          <Spacer/>
+          {String.fromCharCode(filledStar).repeat(review.rating)}
+          </Flex>
+          <br/>
           {review.text} 
+          <br/>
+          <br/>
         </Box>
       </Box>
       <Flex>
