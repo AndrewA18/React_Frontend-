@@ -56,6 +56,7 @@ function Home(props) {
     const getReviews = async => 
     {
       let selectedBusiness = getCurrentSelectedBusiness();
+      setReviewData(null);
 
       fetch('/yelp/reviews/' + selectedBusiness.id + '/'
       ,{
