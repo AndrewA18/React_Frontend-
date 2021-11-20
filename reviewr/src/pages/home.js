@@ -120,7 +120,7 @@ function Home(props) {
                 </Box>
                 <Box overflowY="auto" height="500px" width="450px" onClick={getReviews}>
                     {
-                      data && data.map( business => BusCard(business) )
+                      data && data.map( business => <BusCard props={business}/> )
                     }
                 </Box>
               </VStack>
@@ -135,7 +135,7 @@ function Home(props) {
                 </Box>
                 <Box overflowY="auto" height="500px">
                   {
-                    reviewData && reviewData.length>0 && reviewData.map((review)=>ReviewCard(review))
+                    reviewData && reviewData.length>0 && reviewData.map((review) => <ReviewCard props={review}/>)
                   }
                 </Box>
               </VStack>

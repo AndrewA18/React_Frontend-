@@ -3,24 +3,26 @@ import React, {useState} from 'react';
 
 let currentBusiness = "";
 
-
 export function getCurrentSelectedBusiness()
 {
   return currentBusiness;
 }
 
-function BusCard(item, index) 
+function BusCard(item) 
 { 
-  function setBusiness() 
+  const [selected, setSelected] = useState(false);
+
+  function setBusiness(business) 
   {
-    currentBusiness = item;
+    currentBusiness = business;
+    setSelected(!selected)
   }
 
   return(
-    <Button ml={10} mt={3} variant="outline" width="350px" height="250px" onClick={setBusiness}>
+    <Button ml={10} mt={3} variant="outline" width="350px" height="250px" onClick={() => setBusiness(item.props)}>
     <Box maxW="sm" flexGrow={1} borderRadius="lg" overflow="hidden">
       <AspectRatio maxH="140px">
-        <Image src={item.image_url} alt={item.alias} size="sm" />
+        <Image src={item.props.image_url} alt={item.props.alias} size="sm" />
       </AspectRatio>
       <Box p="2">
         <Box
@@ -30,9 +32,9 @@ function BusCard(item, index)
           lineHeight="tight"
           textAlign="left"
         >
-          {item.name} 
+          {item.props.name} 
           <br />
-          {item.review_count} Reviews
+          {item.props.review_count} Reviews
         </Box>
         <Box mt={1}>
           <Box
@@ -43,9 +45,9 @@ function BusCard(item, index)
             textTransform="uppercase"
             textAlign="left"
           >
-            {item.location.address1} - {item.location.city}
+            {item.props.location.address1} - {item.props.location.city}
             <br />
-            {item.display_phone}
+            {item.props.display_phone}
           </Box>
         </Box>
       </Box>
