@@ -159,7 +159,7 @@ function ReviewCard(review) {
                   {String.fromCharCode(unfilledUpArrow)}
           </Button>
           <Spacer />
-          <Heading size="sm" color="green">+{upvotes}</Heading>
+          <Heading size="sm" color={upvotes === 0 ? "gray" : "green"}> {upvotes === 0 ? "" : "+"}{upvotes}</Heading>
           <Spacer />
           <Spacer />
           <Spacer />
@@ -167,7 +167,7 @@ function ReviewCard(review) {
           <Spacer />
           <Spacer />
           <Spacer />
-          <Heading size="sm" color="red">-{downvotes}</Heading>
+          <Heading size="sm" color={downvotes === 0 ? "gray" : "red"}> {downvotes === 0 ? "" : "-"}{downvotes}</Heading>
           <Spacer />
           <Button backgroundColor={downvoted ? "red" : "gray"} 
                   onClick={() => handleDownvote()}>
