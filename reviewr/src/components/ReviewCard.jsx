@@ -2,8 +2,8 @@ import { Box, Button, Flex, Spacer, Heading} from "@chakra-ui/react";
 import Cookies from 'js-cookie';
 import React, {useEffect, useState} from 'react';
 
-const unfilledUpArrow = 9651;
-const unfilledDownArrow = 9661;
+const unfilledUpArrow = 9650;
+const unfilledDownArrow = 9660;
 const filledStar = 9733;
 
 function ReviewCard(review) {
