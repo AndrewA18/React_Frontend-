@@ -13,6 +13,7 @@ function ReviewCard(review) {
 
   const handleUpvote = () => 
   {
+    upvoteReview();
     hasUserUpvoted();
     setUpvoted(true);
     setDownvoted(false);
@@ -36,8 +37,8 @@ function ReviewCard(review) {
               "Authorization": "Token " + Cookies.get("token"),
           }
       })
-      const responseValues = response.json().then((value) => setUpvoted(value === 'True'))
-      return responseValues
+      const userupvoted = response.json().then((value) => setUpvoted(value === 'True'))
+      return userupvoted
   }
 
   async function hasUserDownvoted()
@@ -51,8 +52,31 @@ function ReviewCard(review) {
               "Authorization": "Token " + Cookies.get("token"),
           }
       })
-      const responseValues = response.json().then((value) => setDownvoted(value === 'True'))
-      return responseValues
+      const userdownvoted = response.json().then((value) => setDownvoted(value === 'True'))
+      return userdownvoted
+  }
+
+  async function upvoteReview()
+  {
+    var formData = new FormData();
+    formData.append('yelp_review_id', review.props.id);
+
+    const response = await fetch("/api/reviews/upvote/", 
+    {
+        method: 'POST',
+        headers:{
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Token " + Cookies.get("token"),
+        },
+        body: JSON.stringify({
+          "yelp_review_id": review.props.id
+        })
+    });
+    
+    //const responseValue = response.json();
+    //console.log(responseValue);
+    return null;
   }
 
 
