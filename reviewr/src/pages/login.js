@@ -13,9 +13,12 @@ function Login(){
 
     async function callLoginApi()
     {
-        var formData = new FormData();
-        formData.append('username', email); //Users will login with emails. so the username field is an email...
-        formData.append('password', password);
+        let data = JSON.stringify({        
+        "username": email,
+        "password": password
+        })
+        console.log(data['username'])
+        console.log(data['password'])
         const response = await fetch("/api/login/", 
         {
             method: 'POST',
@@ -23,7 +26,7 @@ function Login(){
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: formData
+            body: data
         })
         const responseValues = response.json();
         return responseValues
@@ -32,8 +35,13 @@ function Login(){
     async function login()
     {
         callLoginApi().then(responseValues => {
-            document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
-            document.location.assign("/");
+            if (responseValues['token'] != undefined){
+                document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
+                document.location.assign("/");
+            }
+            else{
+                alert("Username/Password Combination Inccorrect")
+            }
         });
     }
     
