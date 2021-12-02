@@ -15,52 +15,41 @@ import {
     Button,
     Image
 } from "@chakra-ui/react"
+import Cookies from 'js-cookie';
+import {grabProfile} from '../services/profileGrabber.js'
 
 
 
 function Profile(){
-    const [email, setEmail]=useState([]);
-    const [username, setUsername]=useState([]);
-    const [zip, setZip]=useState([]);
-    
 
-    async function profile()
-    {
-        var formData = new FormData();
-        formData.append('email', email);
-        formData.append('username', username);
-        formData.append('zip', zip)
-        fetch("/api/profile/", {
-            method: 'POST',
-            header:{
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-        .then(result => 
-            {
-                if(!result.ok)
-                {
-                    throw new Error("Failed to create account");
-                }
-                else
-                {
-                    result.text().then(value => document.cookie = ("token=" + JSON.parse(value)['token']) + "; max-age=86400; SameSite=Strict;"); //86400 is one day in time.
-                    document.location.assign("/");
-                }
-            })
-        .catch(error => console.log(error));
-    }
+    async function getUserInfo() {
+        try{
+            var data = await grabProfile();
+        } catch (err) {
+            console.error(err)
+            throw err;
+        }
+        console.log('WORKED', data);
+        return data;
+    } 
     
+    var userInfo = getUserInfo();
+    userInfo.then(User =>{console.log('Username: ', User.username)});
+    var testVar = 'TEST!';
+
     const editProf = () =>{
         document.location.assign("/editprofile")
+    }
+
+    const deleteToken = () =>{
+        Cookies.remove('token')
     }
 
 
     return (
         <ChakraProvider>
-            <Flex justifyContent="left">
+            <Button colorScheme="teal" variant="solid" onClick={() => {deleteToken(); document.location.assign("/");}}> Logout </Button>
+            <Flex justifyContent="center">
                 <VStack spacing={4} align="stretch">
                     <Box width="400px">
                         <Center>
@@ -78,9 +67,9 @@ function Profile(){
                                 fallbackSrc="https://via.placeholder.com/150"
                                 />
                                 <Divider orientation="horizontal" />
-                                <Text>Username: username</Text>
+                                <Text >Username: {userInfo.username} </Text>
                                 <Divider orientation="horizontal" />
-                                <Text>Email: example@example.com</Text>
+                                <Text>Email: {testVar} </Text>
                                 <Divider orientation="horizontal" />
                                 <Text>Zip Code: 00000</Text>
                                 <Divider orientation="horizontal" />

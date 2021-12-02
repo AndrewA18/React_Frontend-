@@ -11,7 +11,11 @@ import {
   VStack,
   ButtonGroup,
   Divider,
-  Spacer
+  Spacer,
+  Menu,
+  MenuButton,
+  MenuItem, 
+  MenuList
 } from "@chakra-ui/react"
 
 import BusCard, {getCurrentSelectedBusiness} from '../components/BusCard'
@@ -86,7 +90,16 @@ function Home(props) {
   const renderAuthButton = () =>{
     if(Cookies.get('token')!= null)
     {
-      return <Button colorScheme="teal" variant="solid" onClick={() => deleteToken()}> Logout </Button>
+      //return <Button colorScheme="teal" variant="solid" onClick={() => deleteToken()}> Logout </Button>
+      return  <Menu>
+                <MenuButton as={Button} colorScheme='teal' variant="solid">
+                  Account
+                </MenuButton>
+                <MenuList>
+                  <MenuItem onClick={() => {document.location.assign("/profile")}}>Profile </MenuItem>
+                  <MenuItem onClick={() => deleteToken()}>Logout</MenuItem>  
+                </MenuList>
+              </Menu>
     }
     else
     {
