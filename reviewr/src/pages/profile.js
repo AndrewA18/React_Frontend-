@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     ChakraProvider,
     Flex,
@@ -39,8 +39,9 @@ function Profile() {
     userInfo.then(User => { console.log('Username: ', User.username) });
     var testVar = 'TEST!';
 
-    const editProf = () => {
-        document.location.assign("/editprofile")
+    //however changes are being saved to back end they need to be done here
+    const saveProf = () => {
+        
     }
 
     const deleteToken = () => {
@@ -116,8 +117,8 @@ function Profile() {
                                 </HStack>
                                 <Divider orientation="horizontal" />
                                 <ButtonGroup>
-                                    <Button colorScheme="teal" variant="solid" onClick={editProf}>
-                                        Edit
+                                    <Button colorScheme="teal" variant="solid" onClick={saveProf}>
+                                        Save Changes
                                     </Button>
                                 </ButtonGroup>
 
