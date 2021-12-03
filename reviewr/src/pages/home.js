@@ -20,6 +20,7 @@ import {
 
 import BusCard, {getCurrentSelectedBusiness} from '../components/BusCard'
 import ReviewCard from '../components/ReviewCard'
+import ReviewCardGuest from '../components/ReviewCardGuest'
 import Cookies from 'js-cookie';
 
 function Home(props) { 
@@ -129,7 +130,7 @@ function Home(props) {
               <VStack spacing={4} align="stretch">
                 <Box width="400px">
                   <Center>
-                    <Heading mb={6} isTruncated>Businesses near: {enteredLocation}</Heading>
+                    <Heading mb={6} isTruncated>Restaurants</Heading>
                   </Center>
                 </Box>
                 <Box overflowY="auto" height="500px" width="450px" onClick={getReviews}>
@@ -149,7 +150,10 @@ function Home(props) {
                 </Box>
                 <Box overflowY="auto" height="500px">
                   {
-                    reviewData && reviewData.length>0 && reviewData.map((review) => <ReviewCard props={review}/>)
+                    Cookies.get("token")!=null && reviewData && reviewData.length>0 && reviewData.map((review) => <ReviewCard props={review}/>)
+                  }
+                  {
+                    Cookies.get("token")==null && reviewData && reviewData.length>0 && reviewData.map((review) => <ReviewCardGuest props={review}/>)
                   }
                 </Box>
               </VStack>
