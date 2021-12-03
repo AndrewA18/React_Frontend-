@@ -31,8 +31,13 @@ function Register(){
     async function register()
     {
         callRegisterApi().then(responseValues => {
-            document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
-            document.location.assign("/");
+            if (responseValues['token'] != null){
+                document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
+                document.location.assign("/");
+            }
+            else{
+                alert("Username and Password must be alphanumeric and > 8 characters")
+            }
         })
     }
 
