@@ -1,66 +1,206 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import {
     ChakraProvider,
     Flex,
     Center,
     Heading,
     Box,
-    Input,
-    Spacer,
     VStack,
     Text,
     Stack,
     Divider,
     ButtonGroup,
     Button,
-    Image
+    Image,
+    Editable,
+    EditableInput,
+    EditablePreview,
+    HStack
 } from "@chakra-ui/react"
-
+import { ArrowBackIcon, StarIcon } from '@chakra-ui/icons'
+import Cookies from 'js-cookie';
+import { grabProfile } from '../services/profileGrabber.js'
 
 
 function Profile(){
-    const [email, setEmail]=useState([]);
-    const [username, setUsername]=useState([]);
-    const [zip, setZip]=useState([]);
     
+    const [username,setUsername]=useState([]);
+    const [email,setEmail]=useState([]);
+    const [firstname,setFirstname]=useState([]);
+    const [lastname,setLastname]=useState([]);
+    const [reputation,setReputation]=useState([]);
 
-    async function profile()
+    useEffect(() => {
+        grabProfile().then(data => setUsername(data.username));
+        grabProfile().then(data => setEmail(data.email));
+        grabProfile().then(data => setFirstname(data.first_name));
+        grabProfile().then(data => setLastname(data.last_name));
+        grabProfile().then(data => setReputation(data.reputation));
+    }, []);
+
+    const deleteToken = () => {
+        Cookies.remove('token')
+    }
+    
+    async function callUpdateUsernameApi()
     {
-        var formData = new FormData();
-        formData.append('email', email);
-        formData.append('username', username);
-        formData.append('zip', zip)
-        fetch("/api/profile/", {
-            method: 'POST',
-            header:{
+        let data = JSON.stringify({        
+        "username": username
+        })
+        console.log(data['username'])
+        const response = await fetch("/api/users/update/username/", {
+            method: 'PUT',
+            headers:{
                 "Content-Type": "application/json",
+                "Authorization": "Token " + Cookies.get("token"),
                 "Accept": "application/json"
             },
-            body: formData
+            body: data
         })
-        .then(result => 
-            {
-                if(!result.ok)
-                {
-                    throw new Error("Failed to create account");
-                }
-                else
-                {
-                    result.text().then(value => document.cookie = ("token=" + JSON.parse(value)['token']) + "; max-age=86400; SameSite=Strict;"); //86400 is one day in time.
-                    document.location.assign("/");
-                }
-            })
-        .catch(error => console.log(error));
+        const responseValues = response.json();
+        return responseValues;
+    }
+
+     async function updateUsername()
+    {
+        callUpdateUsernameApi().then(responseValues => {
+            window.location.reload();
+        })
+    }
+
+    async function callUpdateFirstnameApi()
+    {
+        let data = JSON.stringify({        
+        "first_name": firstname
+        })
+        console.log(data['first_name'])
+        const response = await fetch("/api/users/update/firstname/", {
+            method: 'PUT',
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": "Token " + Cookies.get("token"),
+                "Accept": "application/json"
+            },
+            body: data
+        })
+        const responseValues = response.json();
+        return responseValues;
+    }
+
+     async function updateFirstname()
+    {
+        callUpdateFirstnameApi().then(responseValues => {
+            window.location.reload();
+        })
+    }
+
+    async function callUpdateLastnameApi()
+    {
+        let data = JSON.stringify({        
+        "last_name": lastname
+        })
+        console.log(data['last_name'])
+        const response = await fetch("/api/users/update/lastname/", {
+            method: 'PUT',
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": "Token " + Cookies.get("token"),
+                "Accept": "application/json"
+            },
+            body: data
+        })
+        const responseValues = response.json();
+        return responseValues;
+    }
+
+     async function updateLastname()
+    {
+        callUpdateLastnameApi().then(responseValues => {
+            window.location.reload();
+        })
+    }
+
+    async function callUpdateEmailApi()
+    {
+        let data = JSON.stringify({        
+        "email": email
+        })
+        console.log(data['email'])
+        const response = await fetch("/api/users/update/email/", {
+            method: 'PUT',
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": "Token " + Cookies.get("token"),
+                "Accept": "application/json"
+            },
+            body: data
+        })
+        const responseValues = response.json();
+        return responseValues;
+    }
+
+     async function updateEmail()
+    {
+        callUpdateEmailApi().then(responseValues => {
+            window.location.reload();
+        })
     }
     
-    const editProf = () =>{
-        document.location.assign("/editprofile")
+    const renderFirstnameValue = () =>{
+        if(firstname)
+        {
+            return <Editable
+                        onChange={newFirstname => setFirstname(newFirstname)}
+                        onSubmit={() => {updateFirstname()}}
+                        placeholder = {firstname}
+                    >
+                        <EditablePreview />
+                        <EditableInput />
+                    </Editable>
+        }else{
+                return <Editable
+                            onChange={newFirstname => setFirstname(newFirstname)}
+                            onSubmit={() => {updateFirstname()}}
+                            defaultValue="Enter your last name here"
+                        >
+                            <EditablePreview />
+                            <EditableInput />
+                        </Editable>
+        }
     }
 
-
+    const renderLastnameValue = () =>{
+        if(lastname)
+        {
+            return <Editable
+                        onChange={newLastname => setLastname(newLastname)}
+                        onSubmit={() => {updateLastname()}}
+                        placeholder = {lastname}
+                        
+                    >
+                        <EditablePreview />
+                        <EditableInput />
+                    </Editable>
+        }else{
+                return <Editable
+                            onChange={newLastname => setLastname(newLastname)}
+                            onSubmit={() => {updateLastname()}}
+                            defaultValue="Enter your last name here"
+                            
+                        >
+                            <EditablePreview />
+                            <EditableInput />
+                        </Editable>
+        }
+    }
+ 
     return (
         <ChakraProvider>
-            <Flex justifyContent="left">
+            <ButtonGroup >
+                <Button colorScheme="teal" variant="ghost" leftIcon={< ArrowBackIcon/>} onClick={() => {document.location.assign("/"); }}> Back to home </Button>
+                <Button colorScheme="teal" variant="solid" onClick={() => { deleteToken(); document.location.assign("/"); }}> Logout </Button>
+            </ButtonGroup>    
+            <Flex justifyContent="center">
                 <VStack spacing={4} align="stretch">
                     <Box width="400px">
                         <Center>
@@ -68,52 +208,62 @@ function Profile(){
                         </Center>
                     </Box>
                     <Box width="400px">
-                        <Center>    
+                        <Center>
                             <Stack>
-                                <Image 
-                                borderRadius="full"
-                                boxSize="350px"
-                                src="https://memegenerator.net/img/images/16730303/awkward-old-man-smile.jpg"
-                                alt="hide the pain harold"
-                                fallbackSrc="https://via.placeholder.com/150"
+                                <Image
+                                    borderRadius="full"
+                                    boxSize="350px"
+                                    src="https://memegenerator.net/img/images/16730303/awkward-old-man-smile.jpg"
+                                    alt="hide the pain harold"
+                                    fallbackSrc="https://via.placeholder.com/150"
                                 />
+                                <Text align='center'> <StarIcon w={3} h={3} /> {reputation}</Text>
                                 <Divider orientation="horizontal" />
-                                <Text>Username: username</Text>
+                                <HStack spacing='24px'>
+                                    <Text >Username:</Text>
+
+                                    <Editable
+                                        onChange={newUsername => setUsername(newUsername)}
+                                        onSubmit={() => {updateUsername()}}
+                                        placeholder = {username}
+                                    >
+                                        <EditablePreview />
+                                        <EditableInput />
+                                    </Editable>
+                                </HStack>
+                                
                                 <Divider orientation="horizontal" />
-                                <Text>Email: example@example.com</Text>
+                                <HStack spacing='24px'>
+                                    <Text>First Name:</Text>
+                                    {renderFirstnameValue()}
+                                </HStack>
                                 <Divider orientation="horizontal" />
-                                <Text>Zip Code: 00000</Text>
+                                <HStack spacing='24px'>
+                                    <Text>Last Name:</Text>
+                                    {renderLastnameValue()}
+                                </HStack>
                                 <Divider orientation="horizontal" />
-                                <ButtonGroup>
-                                    <Button colorScheme="teal" variant="solid" onClick={editProf}>
-                                        Edit
-                                    </Button>
-                                </ButtonGroup>
+                                <HStack spacing='24px'>
+                                    <Text>Email:</Text>
+
+                                    <Editable
+                                        onChange={newEmail => setEmail(newEmail)}
+                                        onSubmit={() => {updateEmail()}}
+                                        placeholder= {email}
+                                    >
+                                        <EditablePreview />
+                                        <EditableInput />
+                                    </Editable>
+                                </HStack>
+                                <Divider orientation="horizontal" />
+                                
+
                             </Stack>
                         </Center>
                     </Box>
                 </VStack>
             </Flex>
         </ChakraProvider>
-        /*<div>
-            <h1>Profile Page </h1>
-            <div className="col-sm-6 offset-sm-3">
-            <label>Email: </label>
-            <div address="example@example.com"></div>
-            <br />
-            <label>Username: </label>
-            <input type="text" placeholder="Username" className="form-control" onChange={(e)=>setUsername(e.target.value)}/>
-
-            <br />
-            <label> Zip Code: </label>
-
-            <br />
-
-            <br />
-            
-            <button className="btn btn-primary" >Edit</button>
-            </div>
-        </div>*/
     );
 }
 

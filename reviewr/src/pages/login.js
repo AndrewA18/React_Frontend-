@@ -35,7 +35,7 @@ function Login(){
     async function login()
     {
         callLoginApi().then(responseValues => {
-            if (responseValues['token'] != undefined){
+            if (responseValues['token'] !== undefined){
                 document.cookie = ("token=" + responseValues['token'] + "; max-age=86400; SameSite=Strict;");
                 document.location.assign("/");
             }
@@ -48,7 +48,7 @@ function Login(){
     return (
         <ChakraProvider>
             <Flex height="75vh" alignItems="center" justifyContent="center">
-                <Flex direction="column" background="gray.300" p={12} rounded={6}>
+                <Flex direction="column" background="gray.900" p={12} rounded={6}>
                     <Heading mb={6}>Log in</Heading>
                     <Input width="300px" placeholder="Email" variant="filled" p={6} mb={3} type="email" onChange={(e)=>setEmail(e.target.value)}></Input>
                     <InputGroup>
