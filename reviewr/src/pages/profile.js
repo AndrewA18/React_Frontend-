@@ -198,7 +198,7 @@ function Profile(){
         <ChakraProvider>
 
 
-            <Box background="gray.300" px={4} width="1220px" height="70px"> 
+            <Box background="gray.300" px={4} width="100%" height="70px"> 
                 <HStack spacing={335}>
                     <Flex p="4">
                         <ButtonGroup>

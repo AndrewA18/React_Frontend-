@@ -115,7 +115,7 @@ function Home(props) {
     <ChakraProvider>
       <Flex justifyContent="center">
         <VStack spacing={4} align="stretch" > 
-          <Box background="gray.300" px={4} width="1220px" height="70px"> 
+          <Box background="gray.300" px={4} width="100%" height="70px"> 
             <HStack spacing={330}>
               <Flex p="4">
                 <ButtonGroup>
