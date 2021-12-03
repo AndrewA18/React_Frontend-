@@ -9,6 +9,7 @@ import {
   Flex, 
   Box,
   VStack,
+  HStack,
   ButtonGroup,
   Divider,
   Spacer,
@@ -91,20 +92,21 @@ function Home(props) {
   const renderAuthButton = () =>{
     if(Cookies.get('token')!= null)
     {
-      //return <Button colorScheme="teal" variant="solid" onClick={() => deleteToken()}> Logout </Button>
       return  <Menu>
-                <MenuButton as={Button} colorScheme='teal' variant="solid">
-                  Account
-                </MenuButton>
-                <MenuList>
-                  <MenuItem onClick={() => {document.location.assign("/profile")}}>Profile </MenuItem>
-                  <MenuItem onClick={() => deleteToken()}>Logout</MenuItem>  
-                </MenuList>
-              </Menu>
+      <MenuButton as={Button} width="83px" colorScheme='teal' variant="solid">
+        <Center>
+        Account
+        </Center>
+      </MenuButton>
+      <MenuList>
+        <MenuItem onClick={() => {document.location.assign("/profile")}}>Profile </MenuItem>
+        <MenuItem onClick={() => deleteToken()}>Logout</MenuItem>  
+      </MenuList>
+    </Menu>
     }
     else
     {
-      return <Button colorScheme="teal" variant="solid" onClick={() => {document.location.assign("/login")}}>Login</Button>
+      return <Button width="83px" colorScheme="teal" variant="solid" onClick={() => {document.location.assign("/login")}}> Login </Button>
     }
   }
 
@@ -112,18 +114,30 @@ function Home(props) {
   return (
     <ChakraProvider>
       <Flex justifyContent="center">
-        <VStack spacing={4} align="stretch" >
-          <Flex p="4">
-            <FormControl id="location">
-                <Input type="location" onChange={event => { setLocation(event.target.value); setEnteredLocation(null); setData(null); setReviewData(null)}} />
-            </FormControl>
-            <ButtonGroup>
-              <Button colorScheme="teal" variant="solid" onClick={callYelp}>
-                Search
-              </Button>
-              {renderAuthButton()} 
-            </ButtonGroup>
-          </Flex>
+        <VStack spacing={4} align="stretch" > 
+          <Box background="gray.300" px={4} width="1220px" height="70px"> 
+            <HStack spacing={330}>
+              <Flex p="4">
+                <ButtonGroup>
+                {renderAuthButton()}
+                </ButtonGroup>
+              </Flex>
+              <Flex >
+                <Heading color='gray.300' > .....'''</Heading>
+                <Heading color='teal' >  ReviewR </Heading>
+              </Flex>
+              <Flex p="4">
+                <FormControl id="location">
+                  <Input type="location" onChange={event => { setLocation(event.target.value); setEnteredLocation(null); setData(null); setReviewData(null)}} />
+                </FormControl>
+               <ButtonGroup>
+                 <Button colorScheme="teal" variant="solid" onClick={callYelp}>
+                 Search
+                 </Button>
+               </ButtonGroup>
+              </Flex>
+            </HStack>
+          </Box>
 
           <Center>
             <Flex>

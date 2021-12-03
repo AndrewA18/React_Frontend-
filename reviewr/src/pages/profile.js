@@ -196,15 +196,33 @@ function Profile(){
  
     return (
         <ChakraProvider>
-            <ButtonGroup >
-                <Button colorScheme="teal" variant="ghost" leftIcon={< ArrowBackIcon/>} onClick={() => {document.location.assign("/"); }}> Back to home </Button>
-                <Button colorScheme="teal" variant="solid" onClick={() => { deleteToken(); document.location.assign("/"); }}> Logout </Button>
-            </ButtonGroup>    
+
+
+            <Box background="gray.300" px={4} width="1220px" height="70px"> 
+                <HStack spacing={335}>
+                    <Flex p="4">
+                        <ButtonGroup>
+                        <Button colorScheme="teal" variant="ghost" leftIcon={< ArrowBackIcon/>} onClick={() => {document.location.assign("/"); }}> Back to home </Button>
+                        </ButtonGroup>
+                    </Flex>
+                    <Flex >
+                        <Heading color='teal' >  ReviewR </Heading>
+                        <Heading color='gray.300' > ''''''</Heading>
+                    </Flex>
+                    <Flex p="4">
+                        <ButtonGroup>
+                        <Button width="83px" colorScheme="teal" variant="solid" onClick={() => { deleteToken(); document.location.assign("/"); }}> Logout </Button>
+                        </ButtonGroup>
+                    </Flex>
+                </HStack>
+            </Box>
+            
+               
             <Flex justifyContent="center">
                 <VStack spacing={4} align="stretch">
                     <Box width="400px">
                         <Center>
-                            <Heading mb={6} size="4xl" isTruncated>Profile</Heading>
+                            <Heading mb={4} size="4xl" isTruncated>Profile</Heading>
                         </Center>
                     </Box>
                     <Box width="400px">

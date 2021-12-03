@@ -48,7 +48,7 @@ function Login(){
     return (
         <ChakraProvider>
             <Flex height="75vh" alignItems="center" justifyContent="center">
-                <Flex direction="column" background="gray.900" p={12} rounded={6}>
+                <Flex direction="column" background="gray.300" p={12} rounded={6}>
                     <Heading mb={6}>Log in</Heading>
                     <Input width="300px" placeholder="Email" variant="filled" p={6} mb={3} type="email" onChange={(e)=>setEmail(e.target.value)}></Input>
                     <InputGroup>
@@ -59,6 +59,7 @@ function Login(){
                     </InputGroup>
                     <Button onClick={login} colorScheme="teal" rounded={6}>Log in</Button>
                     <Button onClick={() => {document.location.assign("/register")}} colorScheme="teal" variant="ghost" rounded={6}>No account? Create one here.</Button>
+                    <Button onClick={() => {document.location.assign("/")}} colorScheme="teal" variant="ghost" rounded={6}>Home Page.</Button>
 
                 </Flex>
             </Flex>

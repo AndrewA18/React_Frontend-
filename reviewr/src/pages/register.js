@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Heading, Input, Button, ChakraProvider, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Flex, Heading, Input, Button, ChakraProvider, InputGroup, InputRightElement, Box } from "@chakra-ui/react"
 
 function Register(){
     const [email, setEmail]=useState([]);
@@ -38,8 +38,10 @@ function Register(){
 
     return (
     <ChakraProvider>
-        <Flex height=" 75vh" alignItems="center" justifyContent="center">
-            <Flex direction="column" background="gray.900" p={12} rounded={6}>
+        <Box width="1220px" height="64px"> 
+        </Box>
+        <Flex  height=" 75vh" alignItems="center" justifyContent="center">
+            <Flex  direction="column" background="gray.300" p={12} rounded={6}>
                 <Heading mb={6}>Create an account</Heading>
                 <Input width="300px" placeholder="Email" variant="filled" p={6} mb={3} type="email" onChange={(e)=>setEmail(e.target.value)}></Input>
                 <Input width="300px" placeholder="Username" variant="filled" p={6} mb={3} type="email" onChange={(e)=>setUsername(e.target.value)}></Input>
@@ -52,6 +54,7 @@ function Register(){
                 <Input width="300px" placeholder="Confirm Password" variant="filled"p={6} mb={3} type={show ? "text" : "password"} onChange={(e)=>setPasswordConfirm(e.target.value)}></Input>
                 <Button onClick={register} colorScheme="teal" rounded={6}>Create</Button>
                 <Button onClick={() => {document.location.assign("/login")}} colorScheme="teal" variant="ghost" rounded={6}>Already have an account? Sign in.</Button>
+                <Button onClick={() => {document.location.assign("/")}} colorScheme="teal" variant="ghost" rounded={6}>Home Page.</Button>
             </Flex>
         </Flex>
         </ChakraProvider>
