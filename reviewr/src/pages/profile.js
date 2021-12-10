@@ -153,6 +153,7 @@ function Profile(){
                         onChange={newFirstname => setFirstname(newFirstname)}
                         onSubmit={() => {updateFirstname()}}
                         placeholder = {firstname}
+                        
                     >
                         <EditablePreview />
                         <EditableInput />
@@ -161,7 +162,8 @@ function Profile(){
                 return <Editable
                             onChange={newFirstname => setFirstname(newFirstname)}
                             onSubmit={() => {updateFirstname()}}
-                            defaultValue="Enter your last name here"
+                            defaultValue="Enter your first name here"
+                            
                         >
                             <EditablePreview />
                             <EditableInput />
@@ -249,16 +251,19 @@ function Profile(){
                                         <EditableInput />
                                     </Editable>
                                 </HStack>
-                                
                                 <Divider orientation="horizontal" />
                                 <HStack spacing='24px'>
                                     <Text>First Name:</Text>
-                                    {renderFirstnameValue()}
+                                    <Editable>
+                                        {renderFirstnameValue()}
+                                    </Editable>
                                 </HStack>
                                 <Divider orientation="horizontal" />
                                 <HStack spacing='24px'>
                                     <Text>Last Name:</Text>
-                                    {renderLastnameValue()}
+                                    <Editable>
+                                        {renderLastnameValue()}
+                                    </Editable>
                                 </HStack>
                                 <Divider orientation="horizontal" />
                                 <HStack spacing='24px'>
