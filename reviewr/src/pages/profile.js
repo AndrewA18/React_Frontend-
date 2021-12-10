@@ -162,7 +162,7 @@ function Profile(){
                 return <Editable
                             onChange={newFirstname => setFirstname(newFirstname)}
                             onSubmit={() => {updateFirstname()}}
-                            defaultValue="Enter your first name here"
+                            placeholder="Enter your first name here"
                             
                         >
                             <EditablePreview />
@@ -187,7 +187,7 @@ function Profile(){
                 return <Editable
                             onChange={newLastname => setLastname(newLastname)}
                             onSubmit={() => {updateLastname()}}
-                            defaultValue="Enter your last name here"
+                            placeholder="Enter your last name here"
                             
                         >
                             <EditablePreview />
