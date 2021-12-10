@@ -201,15 +201,15 @@ function Profile(){
 
 
             <Box background="gray.300" px={4} width="100%" height="70px"> 
-                <HStack spacing={335}>
+                <HStack spacing={400}>
                     <Flex p="4">
                         <ButtonGroup>
-                        <Button colorScheme="teal" variant="ghost" leftIcon={< ArrowBackIcon/>} onClick={() => {document.location.assign("/"); }}> Back to home </Button>
+                        <Button width="83px" colorScheme="teal" leftIcon={< ArrowBackIcon/>} onClick={() => {document.location.assign("/"); }}> Home </Button>
                         </ButtonGroup>
                     </Flex>
                     <Flex >
+                        <Heading color='gray.300' >. </Heading>
                         <Heading color='teal' >  ReviewR </Heading>
-                        <Heading color='gray.300' > ''''''</Heading>
                     </Flex>
                     <Flex p="4">
                         <ButtonGroup>
@@ -233,7 +233,7 @@ function Profile(){
                                 <Image
                                     borderRadius="full"
                                     boxSize="350px"
-                                    src="https://memegenerator.net/img/images/16730303/awkward-old-man-smile.jpg"
+                                    src="https://th.bing.com/th/id/OIP.RlHagUJ2ABwgIn9sqsHpSAHaEK?w=307&h=180&c=7&r=0&o=5&dpr=1.56&pid=1.7"
                                     alt="hide the pain harold"
                                     fallbackSrc="https://via.placeholder.com/150"
                                 />
